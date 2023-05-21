@@ -11,14 +11,12 @@ export function Header() {
         <nav>
           <ul className="flex row gap-x-16 font-medium items-center">
             <NavLink to="/">Home</NavLink>
-            <NavLink to="/store">Store</NavLink>
+            <NavLink to="/shop">Shop</NavLink>
             <NavLink to="/about">About</NavLink>
             <NavLink to="/contact">Contact</NavLink>
             <li className="cursor-pointer">
               <svg
-                width="32"
-                height="32"
-                className="fill-none stroke-black"
+                className="fill-none stroke-black w-8 h-8"
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
               >
