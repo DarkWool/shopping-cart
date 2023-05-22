@@ -35,10 +35,31 @@ export function Shop() {
           <div className="w-52 shrink-0 leading-5">
             {/* Sidebar */}
             <h2 className="text-xl font-black pb-5">Categories</h2>
+            {category && (
+              <Link
+                to="/shop"
+                className="text-sm font-medium flex items-center gap-x-2 px-3 py-2 border border-red-500 text-red-500 bg-red-50 mb-2"
+              >
+                <svg
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+                Clear Category
+              </Link>
+            )}
             <ul>
               {categories.map((cat, index) => {
                 return (
-                  <li className="pb-1" key={index}>
+                  <li className="mb-2 capitalize" key={index}>
                     <Link to={`/shop/category/${cat}`}>{cat}</Link>
                   </li>
                 );
