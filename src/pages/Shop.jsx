@@ -1,36 +1,57 @@
 import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import { Loader } from "../components/Loader";
-
-async function getAllProducts() {
-  const res = await fetch("https://fakestoreapi.com/products");
-  const data = await res.json();
-  return data;
-}
+import { fetchData } from "../utils";
 
 export function Shop() {
-  const [data, setData] = useState(null);
+  const { category } = useParams();
+  const [products, setProducts] = useState(null);
+  const [categories, setCategories] = useState(null);
 
   useEffect(() => {
     (async () => {
-      const products = await getAllProducts();
-      setData(products);
-    })();
-  }, []);
+      const productsQuery = category ? `products/category/${category}` : "products";
+      const products = await fetchData(`https://fakestoreapi.com/${productsQuery}`);
 
-  if (data === null) {
+      if (categories === null) {
+        const categoriesData = await fetchData(
+          "https://fakestoreapi.com/products/categories"
+        );
+        setCategories(categoriesData);
+      }
+
+      setProducts(products);
+    })();
+  }, [category]);
+
+  if (products === null) {
     return <Loader />;
-  } else {
-    return (
-      data && (
-        <>
-          <div className="container max-w-screen-xl py-20">
+  }
+
+  return (
+    products && (
+      <>
+        <div className="container max-w-screen-xl py-20 flex gap-10">
+          <div className="w-52 shrink-0 leading-5">
+            {/* Sidebar */}
+            <h2 className="text-xl font-black pb-5">Categories</h2>
+            <ul>
+              {categories.map((cat, index) => {
+                return (
+                  <li className="pb-1" key={index}>
+                    <Link to={`/shop/category/${cat}`}>{cat}</Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+
+          <div>
             <h1 className="text-5xl mb-8 tracking-tight">
               World-class <span className="font-extrabold">composable businesses.</span>
             </h1>
             <div className="grid grid-cols-3 gap-5">
-              {data.map((product) => {
-                console.table(product);
-
+              {products.map((product) => {
                 return (
                   <div className="flex flex-col p-5 gap-y-1" key={product.id}>
                     <span className="text-slate-600">{product.category}</span>
@@ -41,8 +62,8 @@ export function Shop() {
               })}
             </div>
           </div>
-        </>
-      )
-    );
-  }
+        </div>
+      </>
+    )
+  );
 }
