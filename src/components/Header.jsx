@@ -1,7 +1,7 @@
 import Logo from "../assets/images/logo.png";
 import { NavLink } from "react-router-dom";
 
-export function Header() {
+export function Header({ onOpenCart }) {
   return (
     <header className="border-b border-gray-200">
       <div className="container max-w-screen-xl flex items-center justify-between py-4">
@@ -14,7 +14,7 @@ export function Header() {
             <NavLink to="/shop">Shop</NavLink>
             <NavLink to="/about">About</NavLink>
             <NavLink to="/contact">Contact</NavLink>
-            <li className="cursor-pointer">
+            <li className="cursor-pointer" onClick={onOpenCart}>
               <svg
                 className="fill-none stroke-black w-8 h-8"
                 viewBox="0 0 24 24"
