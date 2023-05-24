@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export function Cart({ onClose, onDeleteItem, items }) {
+export function Cart({ onClose, onAdjustQuantity, onDeleteItem, items }) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -61,6 +61,28 @@ export function Cart({ onClose, onDeleteItem, items }) {
                   <p className="leading-5 font-medium">{item.title}</p>
                   <p className="font-bold text-lg leading-5">${item.price}</p>
                   <p className="font-bold text-sm leading-5">Quantity: {item.quantity}</p>
+
+                  <div>
+                    <button
+                      type="button"
+                      className="p-3 font-bold text-xl"
+                      onClick={() =>
+                        onAdjustQuantity(item.id, item.quantity, "decrement")
+                      }
+                    >
+                      -
+                    </button>
+                    <span className="text-lg p-3">{item.quantity}</span>
+                    <button
+                      type="button"
+                      className="p-3 font-bold text-xl"
+                      onClick={() =>
+                        onAdjustQuantity(item.id, item.quantity, "increment")
+                      }
+                    >
+                      +
+                    </button>
+                  </div>
 
                   <button
                     className="bg-red-50 text-red-700 px-3 py-1 text-xs border-red-200 border w-auto text-left"

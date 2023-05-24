@@ -34,6 +34,20 @@ function App() {
     }
   }
 
+  function handleAdjustProductQuantity(id, quantity, action) {
+    if (quantity === 1 && action === "decrement") {
+      removeItemFromCart(id);
+      return;
+    }
+
+    const updatedData = cartData.map((item) => {
+      if (item.id === id) item.quantity += action === "increment" ? 1 : -1;
+      return item;
+    });
+
+    setCartData(updatedData);
+  }
+
   const removeItemFromCart = (id) =>
     setCartData(cartData.filter((item) => item.id !== id));
 
@@ -43,6 +57,7 @@ function App() {
         <Cart
           items={cartData}
           onClose={toggleIsCartActive}
+          onAdjustQuantity={handleAdjustProductQuantity}
           onDeleteItem={removeItemFromCart}
         />
       )}
