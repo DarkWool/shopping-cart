@@ -1,3 +1,4 @@
+import { SingleProduct } from "./pages/SingleProduct";
 import { Routes, Route } from "react-router-dom";
 import { Header } from "./components/Header";
 import { Home } from "./pages/Home";
@@ -18,6 +19,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/shop/category/:category" element={<Shop />} />
+        <Route path="/product/:id" element={<SingleProduct />} />
       </Routes>
     </>
   );

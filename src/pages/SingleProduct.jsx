@@ -21,6 +21,9 @@ export function SingleProduct() {
       <>
         <h1>{data.title}</h1>
         <p>{data.description}</p>
+        <button type="button" className="py-3 px-5 bg-red-700 text-white">
+          Add to Cart
+        </button>
       </>
     );
   }
