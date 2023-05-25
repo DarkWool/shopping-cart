@@ -4,72 +4,29 @@ import { Header } from "./components/Header";
 import { Home } from "./pages/Home";
 import { Shop } from "./pages/Shop/";
 import { Cart } from "./components/Cart";
-import { useState, createContext } from "react";
-
-export const CartContext = createContext();
+import { useCart } from "./context/CartContext";
 
 function App() {
-  const [isCartActive, setIsCartActive] = useState(false);
-  const [cartData, setCartData] = useState([]);
-
-  const toggleIsCartActive = () => setIsCartActive(!isCartActive);
-
-  function handleAddItemToCart(newItem) {
-    // Check if the product is already in the cart
-    let isItemInCart = false;
-    const modifiedData = cartData.map((item) => {
-      if (item.id === newItem.id) {
-        isItemInCart = true;
-        item.quantity += 1;
-      }
-
-      return item;
-    });
-
-    if (isItemInCart) setCartData(modifiedData);
-    else {
-      // Add the item
-      newItem.quantity = 1;
-      setCartData([newItem, ...cartData]);
-    }
-  }
-
-  function handleAdjustProductQuantity(id, quantity, action) {
-    if (quantity === 1 && action === "decrement") {
-      removeItemFromCart(id);
-      return;
-    }
-
-    const updatedData = cartData.map((item) => {
-      if (item.id === id) item.quantity += action === "increment" ? 1 : -1;
-      return item;
-    });
-
-    setCartData(updatedData);
-  }
-
-  const removeItemFromCart = (id) =>
-    setCartData(cartData.filter((item) => item.id !== id));
+  const cartContext = useCart();
 
   return (
     <>
-      {isCartActive && (
+      {cartContext.isCartActive && (
         <Cart
-          items={cartData}
-          onClose={toggleIsCartActive}
-          onAdjustQuantity={handleAdjustProductQuantity}
-          onDeleteItem={removeItemFromCart}
+          items={cartContext.cartItems}
+          onAdjustQuantity={cartContext.handleAdjustProductQuantity}
+          onDeleteItem={cartContext.handleRemoveItemFromCart}
+          onClose={cartContext.toggleIsCartActive}
         />
       )}
-      <Header onOpenCart={toggleIsCartActive} />
-      <CartContext.Provider value={handleAddItemToCart}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/shop" element={<Shop />} />
-          <Route path="/shop/category/:category" element={<Shop />} />
-          <Route path="/product/:id" element={<SingleProduct />} />
-        </Routes>
-      </CartContext.Provider>
+
+      <Header onOpenCart={cartContext.toggleIsCartActive} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/shop" element={<Shop />} />
+        <Route path="/shop/category/:category" element={<Shop />} />
+        <Route path="/product/:id" element={<SingleProduct />} />
+      </Routes>
     </>
   );
 }

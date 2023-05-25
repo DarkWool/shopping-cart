@@ -1,11 +1,11 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { Loader } from "../components/Loader";
 import { fetchData } from "../utils";
-import { CartContext } from "../App.jsx";
+import { useCart } from "../context/CartContext.jsx";
 
 export function SingleProduct() {
-  const onAddToCart = useContext(CartContext);
+  const cartContext = useCart();
   const [data, setData] = useState(null);
   const { id } = useParams();
 
@@ -26,7 +26,7 @@ export function SingleProduct() {
         <button
           type="button"
           className="py-3 px-5 bg-red-600"
-          onClick={() => onAddToCart(data)}
+          onClick={() => cartContext.handleAddItemToCart(data)}
         >
           Add to Cart
         </button>
