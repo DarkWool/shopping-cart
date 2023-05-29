@@ -32,8 +32,8 @@ function CartProvider({ children }) {
     }
   }
 
-  function handleAdjustProductQuantity(id, quantity, action) {
-    if (quantity === 1 && action === "decrement") {
+  function handleAdjustProductQuantity(id, currQuantity, action) {
+    if (currQuantity === 1 && action === "decrement") {
       handleRemoveItemFromCart(id);
       return;
     }

@@ -7,20 +7,13 @@ import { Cart } from "./components/Cart";
 import { useCart } from "./context/CartContext";
 
 function App() {
-  const cartContext = useCart();
+  const { isCartActive, toggleIsCartActive } = useCart();
 
   return (
     <>
-      {cartContext.isCartActive && (
-        <Cart
-          items={cartContext.cartItems}
-          onAdjustQuantity={cartContext.handleAdjustProductQuantity}
-          onDeleteItem={cartContext.handleRemoveItemFromCart}
-          onClose={cartContext.toggleIsCartActive}
-        />
-      )}
+      {isCartActive && <Cart />}
 
-      <Header onOpenCart={cartContext.toggleIsCartActive} />
+      <Header onOpenCart={toggleIsCartActive} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<Shop />} />

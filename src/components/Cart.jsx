@@ -1,8 +1,16 @@
 import { useEffect, useState } from "react";
+import { ProductQuantity } from "./ProductQuantity";
+import { useCart } from "../context/CartContext";
 import StarsImg from "../assets/images/stars.png";
 
-export function Cart({ onClose, onAdjustQuantity, onDeleteItem, items }) {
+export function Cart() {
   const [isVisible, setIsVisible] = useState(false);
+  const {
+    cartItems,
+    handleAdjustProductQuantity,
+    handleRemoveItemFromCart,
+    toggleIsCartActive,
+  } = useCart();
 
   useEffect(() => {
     setTimeout(() => {
@@ -23,11 +31,11 @@ export function Cart({ onClose, onAdjustQuantity, onDeleteItem, items }) {
   function handleCloseTransition() {
     setIsVisible(false);
     setTimeout(() => {
-      onClose();
+      toggleIsCartActive();
     }, TRANSITION_DURATION);
   }
 
-  const subtotal = items
+  const subtotal = cartItems
     .reduce((total, curr) => {
       total += curr.price * curr.quantity;
       return total;
@@ -66,7 +74,7 @@ export function Cart({ onClose, onAdjustQuantity, onDeleteItem, items }) {
 
           <div>
             <ul>
-              {items.map((item) => (
+              {cartItems.map((item) => (
                 <li key={item.id} className="flex gap-8 mb-8">
                   <div className="shrink-0 bg-white">
                     <img
@@ -85,7 +93,7 @@ export function Cart({ onClose, onAdjustQuantity, onDeleteItem, items }) {
                       <button
                         type="button"
                         className="stroke-slate-500"
-                        onClick={() => onDeleteItem(item.id)}
+                        onClick={() => handleRemoveItemFromCart(item.id)}
                       >
                         <svg
                           fill="none"
@@ -104,50 +112,15 @@ export function Cart({ onClose, onAdjustQuantity, onDeleteItem, items }) {
 
                     <div className="flex justify-between items-end">
                       <p className="font-bold text-lg leading-5">${item.price}</p>
-                      <div className="flex gap-x-2 text-base font-semibold">
-                        <button
-                          type="button"
-                          className="bg-slate-200 w-6 h-6 rounded-sm stroke-slate-600 flex justify-center items-center p-1"
-                          onClick={() =>
-                            onAdjustQuantity(item.id, item.quantity, "decrement")
-                          }
-                        >
-                          <svg
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={2}
-                            className="w-5 h-5"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M19.5 12h-15"
-                            />
-                          </svg>
-                        </button>
-                        <span className="min-w-[30px] text-center">{item.quantity}</span>
-                        <button
-                          type="button"
-                          className="bg-slate-200 w-6 h-6 rounded-sm text-slate-600 flex justify-center items-center p-1"
-                          onClick={() =>
-                            onAdjustQuantity(item.id, item.quantity, "increment")
-                          }
-                        >
-                          <svg
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={2}
-                            stroke="currentColor"
-                            className="w-5 h-5"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M12 4.5v15m7.5-7.5h-15"
-                            />
-                          </svg>
-                        </button>
-                      </div>
+                      <ProductQuantity
+                        quantity={item.quantity}
+                        onDecrement={() =>
+                          handleAdjustProductQuantity(item.id, item.quantity, "decrement")
+                        }
+                        onIncrement={() =>
+                          handleAdjustProductQuantity(item.id, item.quantity, "increment")
+                        }
+                      />
                     </div>
                   </div>
                 </li>
