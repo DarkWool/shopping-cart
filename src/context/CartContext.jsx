@@ -6,16 +6,16 @@ function useCart() {
   return useContext(CartContext);
 }
 
-function CartProvider({ children }) {
-  const [cartItems, setCartItems] = useState([]);
+function CartProvider({ children, initialItems }) {
+  const [items, setItems] = useState(initialItems ?? []);
   const [isCartActive, setIsCartActive] = useState(false);
 
   const toggleIsCartActive = () => setIsCartActive(!isCartActive);
 
   function handleAddItemToCart(newItem) {
-    // Check if the product is already in the cart
+    // Check if the item is already in the cart
     let isItemInCart = false;
-    const modifiedData = cartItems.map((item) => {
+    const modifiedData = items.map((item) => {
       if (item.id === newItem.id) {
         isItemInCart = true;
         item.quantity += 1;
@@ -24,37 +24,37 @@ function CartProvider({ children }) {
       return item;
     });
 
-    if (isItemInCart) setCartItems(modifiedData);
+    if (isItemInCart) setItems(modifiedData);
     else {
       // Add the item
       newItem.quantity = 1;
-      setCartItems([newItem, ...cartItems]);
+      setItems([newItem, ...items]);
     }
   }
 
-  function handleAdjustProductQuantity(id, currQuantity, action) {
+  function handleAdjustItemQuantity(id, currQuantity, action) {
     if (currQuantity === 1 && action === "decrement") {
       handleRemoveItemFromCart(id);
       return;
     }
 
-    const updatedData = cartItems.map((item) => {
+    const updatedData = items.map((item) => {
       if (item.id === id) item.quantity += action === "increment" ? 1 : -1;
       return item;
     });
 
-    setCartItems(updatedData);
+    setItems(updatedData);
   }
 
   const handleRemoveItemFromCart = (id) =>
-    setCartItems(cartItems.filter((item) => item.id !== id));
+    setItems(items.filter((item) => item.id !== id));
 
   const providerValues = {
     isCartActive,
     toggleIsCartActive,
-    cartItems,
+    items,
     handleAddItemToCart,
-    handleAdjustProductQuantity,
+    handleAdjustItemQuantity,
     handleRemoveItemFromCart,
   };
 

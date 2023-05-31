@@ -6,8 +6,8 @@ import StarsImg from "../assets/images/stars.png";
 export function Cart() {
   const [isVisible, setIsVisible] = useState(false);
   const {
-    cartItems,
-    handleAdjustProductQuantity,
+    items,
+    handleAdjustItemQuantity,
     handleRemoveItemFromCart,
     toggleIsCartActive,
   } = useCart();
@@ -25,7 +25,7 @@ export function Cart() {
     classes.cart = "translate-x-0";
     classes.background = "bg-black/70 backdrop-blur-sm";
   } else {
-    classes.cart = "translate-x-full";
+    classes.cart = "translate-x-full invisible";
   }
 
   function handleCloseTransition() {
@@ -35,7 +35,7 @@ export function Cart() {
     }, TRANSITION_DURATION);
   }
 
-  const subtotal = cartItems
+  const subtotal = items
     .reduce((total, curr) => {
       total += curr.price * curr.quantity;
       return total;
@@ -46,6 +46,7 @@ export function Cart() {
     <>
       <div
         className={`z-10 fixed bg-white h-full w-full leading-5 right-0 overflow-y-auto text-sm max-w-xl flex flex-col py-10 ${transitionClasses} ${classes.cart}`}
+        data-testid="cart"
       >
         <div className="px-16 grow">
           <div className="mb-12 flex justify-between">
@@ -55,7 +56,13 @@ export function Cart() {
               </span>
               <img src={StarsImg} alt="" className="max-h-12 inline-block" />
             </div>
-            <span className="cursor-pointer" onClick={handleCloseTransition}>
+            <button
+              type="button"
+              className="cursor-pointer"
+              onClick={handleCloseTransition}
+              aria-label="close"
+              title="close"
+            >
               <svg
                 fill="none"
                 viewBox="0 0 24 24"
@@ -69,12 +76,12 @@ export function Cart() {
                   d="M6 18L18 6M6 6l12 12"
                 />
               </svg>
-            </span>
+            </button>
           </div>
 
           <div>
             <ul>
-              {cartItems.map((item) => (
+              {items.map((item) => (
                 <li key={item.id} className="flex gap-8 mb-8">
                   <div className="shrink-0 bg-white">
                     <img
@@ -85,15 +92,17 @@ export function Cart() {
 
                   <div className="flex flex-col gap-y-6">
                     <div className="flex gap-x-3 items-start">
-                      <p className="leading-4 font-medium">
+                      <span className="leading-4 font-medium" data-testid="itemTitle">
                         {item.title}
-                        Bose Altavoz Bluetooth SoundLink Micro: Pequeño Altavoz portátil
-                        Resistente al Agua con micrófono, Blanco
-                      </p>
+                        {/* Bose Altavoz Bluetooth SoundLink Micro: Pequeño Altavoz portátil
+                        Resistente al Agua con micrófono, Blanco */}
+                      </span>
+
                       <button
                         type="button"
                         className="stroke-slate-500"
                         onClick={() => handleRemoveItemFromCart(item.id)}
+                        aria-label="Remove item"
                       >
                         <svg
                           fill="none"
@@ -115,10 +124,10 @@ export function Cart() {
                       <ProductQuantity
                         quantity={item.quantity}
                         onDecrement={() =>
-                          handleAdjustProductQuantity(item.id, item.quantity, "decrement")
+                          handleAdjustItemQuantity(item.id, item.quantity, "decrement")
                         }
                         onIncrement={() =>
-                          handleAdjustProductQuantity(item.id, item.quantity, "increment")
+                          handleAdjustItemQuantity(item.id, item.quantity, "increment")
                         }
                       />
                     </div>
@@ -133,13 +142,16 @@ export function Cart() {
           <div className="px-16">
             <div className="text-base flex justify-between pb-6">
               <span className="font-semibold">Subtotal:</span>
-              <span className="font-bold text-lg">$ {subtotal}</span>
+              <span className="font-bold text-lg" data-testid="subtotal">
+                $ {subtotal}
+              </span>
             </div>
 
             <div>
-              <button
-                type="button"
+              <a
+                href="#"
                 className="py-4 px-8 font-bold rounded-full uppercase border-2 border-black shadow-[7px_8px_0px_5px_black] mb-3 w-full text-base flex justify-center gap-x-2 duration-200 hover:bg-shiny-yellow"
+                aria-label="checkout"
               >
                 <span>CHECKOUT</span>
                 <span>
@@ -157,7 +169,7 @@ export function Cart() {
                     />
                   </svg>
                 </span>
-              </button>
+              </a>
             </div>
           </div>
         </div>
