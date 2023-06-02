@@ -13,11 +13,20 @@ function App() {
     <>
       {isCartActive && <Cart />}
 
-      <Header onOpenCart={toggleIsCartActive} />
+      <Routes>
+        <Route path="/*" element={<Header onOpenCart={toggleIsCartActive} />} />
+        <Route
+          path="/shop"
+          element={<Header onOpenCart={toggleIsCartActive} isAboveBanner={true} />}
+        />
+      </Routes>
+
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/shop" element={<Shop />} />
-        <Route path="/shop/category/:category" element={<Shop />} />
+        <Route path="/shop" element={<Shop />}>
+          <Route index />
+          <Route path="/shop/category/:category" />
+        </Route>
         <Route path="/product/:id" element={<SingleProduct />} />
       </Routes>
     </>
