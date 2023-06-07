@@ -17,7 +17,7 @@ function App() {
         <Route path="/*" element={<Header onOpenCart={toggleIsCartActive} />} />
         <Route
           path="/shop"
-          element={<Header onOpenCart={toggleIsCartActive} isAboveBanner={true} />}
+          element={<Header onOpenCart={toggleIsCartActive} hasImageBelow={true} />}
         />
       </Routes>
 
