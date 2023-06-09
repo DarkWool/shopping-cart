@@ -1,9 +1,33 @@
 import { Link } from "react-router-dom";
 
 export function Sidebar({ currCategory, categories, onCategoryChange }) {
+  const categoriesList = categories.map((c) => {
+    let styles = "px-2 block rounded transition duration-200";
+    styles +=
+      currCategory === c.id
+        ? " font-semibold bg-gray-800 text-white py-2"
+        : " font-medium hover:bg-gray-200 py-1";
+
+    return (
+      <li key={c.id} className="mb-1">
+        {currCategory === c.id ? (
+          <span className={styles}>{c.name}</span>
+        ) : (
+          <Link
+            to={`/shop/category/${c.id}`}
+            className={styles}
+            onClick={onCategoryChange}
+          >
+            {c.name}
+          </Link>
+        )}
+      </li>
+    );
+  });
+
   return (
-    <div className="w-52 shrink-0 leading-5">
-      <h2 className="text-xl font-black pb-5">Categories</h2>
+    <div className="w-56 shrink-0 leading-5 py-12 pr-5 border-r border-gray-200">
+      <h2 className="text-xl font-bold pb-5">Categories</h2>
       {currCategory && (
         <Link
           to="/shop"
@@ -23,17 +47,7 @@ export function Sidebar({ currCategory, categories, onCategoryChange }) {
         </Link>
       )}
 
-      <ul>
-        {categories.map((cat, index) => {
-          return (
-            <li className="mb-2 capitalize font-medium" key={index}>
-              <Link to={`/shop/category/${cat}`} onClick={onCategoryChange}>
-                {cat}
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
+      <ul>{categoriesList}</ul>
     </div>
   );
 }
