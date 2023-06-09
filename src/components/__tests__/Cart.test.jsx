@@ -55,9 +55,9 @@ describe("Cart", () => {
 
   it("correctly calculates and renders the subtotal", () => {
     const mockData = [
-      { id: 1, title: "Product 1", quantity: 1, price: 345 },
-      { id: 2, title: "Product 2", quantity: 1, price: 200 },
-      { id: 3, title: "Product 3", quantity: 1, price: 12.99 },
+      { id: 1, name: "Product 1", quantity: 1, regularPrice: 345 },
+      { id: 2, name: "Product 2", quantity: 1, regularPrice: 200 },
+      { id: 3, name: "Product 3", quantity: 1, regularPrice: 12.99 },
     ];
 
     render(
@@ -83,9 +83,9 @@ describe("Cart", () => {
 describe("Cart Items", () => {
   it("renders the correct number of items in ascending order", () => {
     const mockData = [
-      { id: 1, title: "Product 1", quantity: 1, price: 345 },
-      { id: 2, title: "Product 2", quantity: 1, price: 200 },
-      { id: 3, title: "Product 3", quantity: 1, price: 12.99 },
+      { id: 1, name: "Product 1", quantity: 1, regularPrice: 345 },
+      { id: 2, name: "Product 2", quantity: 1, regularPrice: 200 },
+      { id: 3, name: "Product 3", quantity: 1, regularPrice: 12.99 },
     ];
 
     render(
@@ -103,9 +103,9 @@ describe("Cart Items", () => {
 
   it("renders the items prices", () => {
     const mockData = [
-      { id: 1, title: "Product 1", quantity: 1, price: 345 },
-      { id: 2, title: "Product 2", quantity: 1, price: 200 },
-      { id: 3, title: "Product 3", quantity: 1, price: 12.99 },
+      { id: 1, name: "Product 1", quantity: 1, regularPrice: 345 },
+      { id: 2, name: "Product 2", quantity: 1, regularPrice: 200 },
+      { id: 3, name: "Product 3", quantity: 1, regularPrice: 12.99 },
     ];
 
     render(
@@ -121,9 +121,9 @@ describe("Cart Items", () => {
 
   it("removes an item from the cart when pressing the 'remove' button", async () => {
     const mockData = [
-      { id: 1, title: "Product 1", quantity: 1, price: 345 },
-      { id: 2, title: "Product 2", quantity: 1, price: 200 },
-      { id: 3, title: "Product 3", quantity: 1, price: 12.99 },
+      { sku: 1, name: "Product 1", quantity: 1, price: 345 },
+      { sku: 2, name: "Product 2", quantity: 1, price: 200 },
+      { sku: 3, name: "Product 3", quantity: 1, price: 12.99 },
     ];
     const user = userEvent.setup();
 
@@ -141,9 +141,9 @@ describe("Cart Items", () => {
 
   it("must render 2 buttons per item to decrement and increment its quantity", () => {
     const mockData = [
-      { id: 1, title: "Product 1", quantity: 1, price: 345 },
-      { id: 2, title: "Product 2", quantity: 1, price: 200 },
-      { id: 3, title: "Product 3", quantity: 1, price: 12.99 },
+      { id: 1, name: "Product 1", quantity: 1, price: 345 },
+      { id: 2, name: "Product 2", quantity: 1, price: 200 },
+      { id: 3, name: "Product 3", quantity: 1, price: 12.99 },
     ];
 
     render(
@@ -157,7 +157,7 @@ describe("Cart Items", () => {
   });
 
   it("decrements the item quantity when the 'decrement' button is clicked", async () => {
-    const mockData = [{ id: 1, title: "Product 1", quantity: 5, price: 345 }];
+    const mockData = [{ id: 1, name: "Product 1", quantity: 5, price: 345 }];
     const user = userEvent.setup();
 
     render(
@@ -172,7 +172,7 @@ describe("Cart Items", () => {
   });
 
   it("removes an item from the cart when its quantity is equal to 1 and the user clicks on the 'decrement' button", async () => {
-    const mockData = [{ id: 1, title: "Product 1", quantity: 1, price: 345 }];
+    const mockData = [{ id: 1, name: "Product 1", quantity: 1, price: 345 }];
     const user = userEvent.setup();
 
     render(
@@ -188,7 +188,7 @@ describe("Cart Items", () => {
   });
 
   it("increments the item quantity when the 'increment' button is clicked", async () => {
-    const mockData = [{ id: 1, title: "Product 1", quantity: 5, price: 345 }];
+    const mockData = [{ id: 1, name: "Product 1", quantity: 5, price: 345 }];
     const user = userEvent.setup();
 
     render(

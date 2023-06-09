@@ -16,7 +16,7 @@ function CartProvider({ children, initialItems }) {
     // Check if the item is already in the cart
     let isItemInCart = false;
     const modifiedData = items.map((item) => {
-      if (item.id === newItem.id) {
+      if (item.sku === newItem.sku) {
         isItemInCart = true;
         item.quantity += 1;
       }
@@ -32,22 +32,22 @@ function CartProvider({ children, initialItems }) {
     }
   }
 
-  function handleAdjustItemQuantity(id, currQuantity, action) {
+  function handleAdjustItemQuantity(sku, currQuantity, action) {
     if (currQuantity === 1 && action === "decrement") {
-      handleRemoveItemFromCart(id);
+      handleRemoveItemFromCart(sku);
       return;
     }
 
     const updatedData = items.map((item) => {
-      if (item.id === id) item.quantity += action === "increment" ? 1 : -1;
+      if (item.sku === sku) item.quantity += action === "increment" ? 1 : -1;
       return item;
     });
 
     setItems(updatedData);
   }
 
-  const handleRemoveItemFromCart = (id) =>
-    setItems(items.filter((item) => item.id !== id));
+  const handleRemoveItemFromCart = (sku) =>
+    setItems(items.filter((item) => item.sku !== sku));
 
   const providerValues = {
     isCartActive,

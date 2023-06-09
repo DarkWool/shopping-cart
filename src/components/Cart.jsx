@@ -37,7 +37,7 @@ export function Cart() {
 
   const subtotal = items
     .reduce((total, curr) => {
-      total += curr.price * curr.quantity;
+      total += curr.regularPrice * curr.quantity;
       return total;
     }, 0)
     .toFixed(2);
@@ -45,11 +45,11 @@ export function Cart() {
   return (
     <>
       <div
-        className={`z-10 fixed bg-white h-full w-full leading-5 right-0 overflow-y-auto text-sm max-w-xl flex flex-col py-10 ${transitionClasses} ${classes.cart}`}
+        className={`z-[1000] fixed bg-white h-full w-full leading-5 right-0 overflow-y-auto text-sm max-w-xl flex flex-col py-10 ${transitionClasses} ${classes.cart}`}
         data-testid="cart"
       >
         <div className="px-16 grow">
-          <div className="mb-12 flex justify-between">
+          <div className="mb-9 flex justify-between items-start">
             <div>
               <span className="text-3xl font-bold tracking-tighter mr-5 font-headings">
                 Shopping Bag
@@ -82,33 +82,31 @@ export function Cart() {
           <div>
             <ul>
               {items.map((item) => (
-                <li key={item.id} className="flex gap-8 mb-8">
+                <li key={item.sku} className="flex gap-8 mb-8">
                   <div className="shrink-0 bg-white">
                     <img
                       src={item.image}
-                      className="w-24 max-w-full h-24 object-contain"
+                      className="w-20 max-w-full h-20 object-contain"
                     />
                   </div>
 
                   <div className="flex flex-col gap-y-6">
-                    <div className="flex gap-x-3 items-start">
+                    <div className="flex gap-x-4 items-start">
                       <span className="leading-4 font-medium" data-testid="itemTitle">
-                        {item.title}
-                        {/* Bose Altavoz Bluetooth SoundLink Micro: Pequeño Altavoz portátil
-                        Resistente al Agua con micrófono, Blanco */}
+                        {item.name}
                       </span>
 
                       <button
                         type="button"
                         className="stroke-slate-500"
-                        onClick={() => handleRemoveItemFromCart(item.id)}
+                        onClick={() => handleRemoveItemFromCart(item.sku)}
                         aria-label="Remove item"
                       >
                         <svg
                           fill="none"
                           viewBox="0 0 24 24"
                           strokeWidth={1.5}
-                          className="w-6 h-6"
+                          className="w-5 h-5"
                         >
                           <path
                             strokeLinecap="round"
@@ -120,14 +118,16 @@ export function Cart() {
                     </div>
 
                     <div className="flex justify-between items-end">
-                      <p className="font-bold text-lg leading-5">${item.price}</p>
+                      <p className="font-bold text-base leading-5">
+                        ${item.regularPrice}
+                      </p>
                       <ProductQuantity
                         quantity={item.quantity}
                         onDecrement={() =>
-                          handleAdjustItemQuantity(item.id, item.quantity, "decrement")
+                          handleAdjustItemQuantity(item.sku, item.quantity, "decrement")
                         }
                         onIncrement={() =>
-                          handleAdjustItemQuantity(item.id, item.quantity, "increment")
+                          handleAdjustItemQuantity(item.sku, item.quantity, "increment")
                         }
                       />
                     </div>
@@ -140,7 +140,7 @@ export function Cart() {
 
         <div className="border-t pt-6">
           <div className="px-16">
-            <div className="text-base flex justify-between pb-6">
+            <div className="text-base flex justify-between pb-6 items-center">
               <span className="font-semibold">Subtotal:</span>
               <span className="font-bold text-lg" data-testid="subtotal">
                 $ {subtotal}
@@ -176,7 +176,7 @@ export function Cart() {
       </div>
 
       <div
-        className={`fixed w-full h-full ${transitionClasses} ${classes.background}`}
+        className={`z-[999] fixed w-full h-full ${transitionClasses} ${classes.background}`}
         onClick={handleCloseTransition}
       ></div>
     </>
