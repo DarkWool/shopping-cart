@@ -1,7 +1,15 @@
 import { Link } from "react-router-dom";
 import { StarsRating } from "../../components/StarsRating";
+import { Pagination } from "../../components/Pagination";
 
-export function ProductsList({ totalItems, items, isLoading }) {
+export function ProductsList({
+  totalItems,
+  items,
+  isLoading,
+  currPage,
+  totalPages,
+  onPageChange,
+}) {
   const loadingStyles = isLoading && "opacity-30";
 
   return (
@@ -30,6 +38,15 @@ export function ProductsList({ totalItems, items, isLoading }) {
             </Link>
           );
         })}
+      </div>
+
+      <div>
+        <Pagination
+          currPage={currPage}
+          totalPages={totalPages}
+          siblings={3}
+          onPageChange={onPageChange}
+        />
       </div>
     </div>
   );
