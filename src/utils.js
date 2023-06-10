@@ -4,4 +4,6 @@ async function fetchData(url) {
   return data;
 }
 
-export { fetchData };
+const isNumber = (n) => typeof n === "number" && !isNaN(n);
+
+export { fetchData, isNumber };
