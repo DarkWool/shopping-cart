@@ -1,6 +1,7 @@
 import { SingleProduct } from "./pages/SingleProduct";
 import { Routes, Route } from "react-router-dom";
 import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
 import { Home } from "./pages/Home";
 import { Shop } from "./pages/Shop/";
 import { Cart } from "./components/Cart";
@@ -29,6 +30,8 @@ function App() {
         </Route>
         <Route path="/product/:id" element={<SingleProduct />} />
       </Routes>
+
+      <Footer />
     </>
   );
 }
