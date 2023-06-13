@@ -5,6 +5,7 @@ import textBackground from "/src/assets/images/innovate-text-gradient.png";
 import { Link } from "react-router-dom";
 import { Marquee } from "../components/Marquee";
 import { IconBox } from "../components/IconBox";
+import { Container } from "../components/Container";
 
 export function Home() {
   return (
@@ -14,7 +15,7 @@ export function Home() {
           <img src={textBackground} alt="" />
         </div>
 
-        <div className="container max-w-screen-xl flex items-center">
+        <Container className="flex items-center">
           <div className="w-1/2 max-w-full shrink-0">
             <div className="flex gap-4 mb-5">
               <img
@@ -59,7 +60,7 @@ export function Home() {
             <img src={lipsImg} alt="" className="absolute top-0 left-0" />
             <img src={heroImg} alt="" />
           </div>
-        </div>
+        </Container>
       </section>
 
       <Marquee
@@ -67,7 +68,7 @@ export function Home() {
         content="THE JOURNEY STARTS HERE"
       />
 
-      <section className="container max-w-screen-xl my-14 flex items-center gap-36">
+      <Container as="section" className="my-14 flex items-center gap-36">
         <div className="max-w-sm w-full shrink-0"></div>
 
         <div>
@@ -113,9 +114,9 @@ export function Home() {
             />
           </div>
         </div>
-      </section>
+      </Container>
 
-      <section className="container max-w-screen-xl flex items-center my-16">
+      <Container as="section" className="flex items-center my-16">
         <div className="grow">
           <span className="text-gray-600 tracking-wider mb-2 block">
             Unleash their power. Unleash yours.
@@ -125,14 +126,13 @@ export function Home() {
           </h2>
           <span className="mt-1 w-full h-1 bg-black block"></span>
         </div>
-
         <Link
           to="./shop/category/pcmcat287600050002"
           className="bg-black w-96 h-96 bg-[url('/src/assets/images/gaming-desktop-sm.jpg')] bg-center bg-[length:100%] bg-no-repeat transition-all duration-300 ease-in-out hover:bg-[length:120%]"
         />
-      </section>
+      </Container>
 
-      <div className="container max-w-screen-xl py-20 leading-5">
+      <Container as="section" className="py-20">
         <h2 className="text-5xl mb-8 tracking-tight">
           World-class <span className="font-extrabold">composable businesses.</span>
         </h2>
@@ -189,7 +189,7 @@ export function Home() {
             </p>
           </div>
         </div>
-      </div>
+      </Container>
     </>
   );
 }

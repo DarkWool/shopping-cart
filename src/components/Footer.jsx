@@ -1,4 +1,5 @@
 import logo from "/src/assets/images/logo.png";
+import { Container } from "./Container";
 import { Link } from "react-router-dom";
 
 const linksSections = [
@@ -35,7 +36,7 @@ const linksSections = [
 export function Footer() {
   return (
     <footer className="bg-zinc-950 text-white text-sm">
-      <div className="container max-w-screen-xl py-16 flex justify-between">
+      <Container className="py-16 flex justify-between">
         <div className="max-w-xs mr-20 text-sm">
           <img src={logo} className="mb-5" />
           <p className="leading-tight">
@@ -73,16 +74,15 @@ export function Footer() {
             );
           })}
         </div>
-      </div>
+      </Container>
 
       <div className="border-t border-gray-800">
-        <div className="container max-w-screen-xl py-5 text-sm flex justify-between">
+        <Container className="py-5 text-sm flex justify-between">
           <span className="text-gray-400">© 2023 Woolper Inc. All Rights Reserved.</span>
-
           <span className="font-medium">
             Project made by DarkWool using {"BestBuy's"} API.
           </span>
-        </div>
+        </Container>
       </div>
     </footer>
   );

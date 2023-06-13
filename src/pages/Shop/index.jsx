@@ -4,6 +4,7 @@ import { Loader } from "../../components/Loader";
 import { fetchData } from "../../utils";
 import { Sidebar } from "./Sidebar";
 import { ProductsList } from "./ProductsList";
+import { Container } from "../../components/Container";
 import { API_KEY } from "../../api.js";
 
 export function Shop() {
@@ -47,16 +48,16 @@ export function Shop() {
     <>
       <div className="h-80 bg-store-banner -mt-20 bg-no-repeat bg-cover">
         <div className="bg-black/30 w-full h-full flex items-end">
-          <div className="container max-w-screen-xl text-right">
+          <Container className="text-right">
             <h1 className="font-headings text-white text-6xl font-extrabold tracking-tight">
               GAMING STORE
             </h1>
-          </div>
+          </Container>
         </div>
       </div>
 
       <div className="relative grow">
-        <div className="container max-w-screen-xl flex relative">
+        <Container className="flex relative">
           <Sidebar
             currCategory={category}
             categories={categories}
@@ -70,7 +71,7 @@ export function Shop() {
             totalPages={+items.totalPages}
             onPageChange={handleItemsChange}
           />
-        </div>
+        </Container>
       </div>
     </>
   );
