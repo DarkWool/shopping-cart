@@ -8,18 +8,15 @@ import { Cart } from "./components/Cart";
 import { useCart } from "./context/CartContext";
 
 function App() {
-  const { isCartActive, toggleIsCartActive } = useCart();
+  const { isCartActive } = useCart();
 
   return (
     <>
       {isCartActive && <Cart />}
 
       <Routes>
-        <Route path="/*" element={<Header onOpenCart={toggleIsCartActive} />} />
-        <Route
-          path="/shop/*"
-          element={<Header onOpenCart={toggleIsCartActive} hasImageBelow={true} />}
-        />
+        <Route path="/*" element={<Header />} />
+        <Route path="/shop/*" element={<Header hasImageBelow={true} />} />
       </Routes>
 
       <Routes>

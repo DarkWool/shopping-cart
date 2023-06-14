@@ -2,11 +2,13 @@ import { NavLink } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import Logo from "../assets/images/logo.png";
 import { useScrollDirection } from "../hooks/useScrollDirection";
+import { useCart } from "../context/CartContext";
 
-export function Header({ onOpenCart, hasImageBelow = false }) {
+export function Header({ hasImageBelow = false }) {
   const [isAtTop, setIsAtTop] = useState(true);
   const scrollWatcher = useRef(null);
   const scrollDir = useScrollDirection();
+  const { toggleIsCartActive, items } = useCart();
 
   useEffect(() => {
     const watcher = scrollWatcher.current;
@@ -27,13 +29,19 @@ export function Header({ onOpenCart, hasImageBelow = false }) {
 
   let headerStyles = "";
   if (!isAtTop) {
-    headerStyles = "bg-white/30 text-black stroke-black backdrop-blur-xl h-16";
+    headerStyles =
+      "bg-white/30 text-black stroke-black backdrop-blur-xl h-16 border-white/30";
     if (scrollDir === "down") headerStyles += " -translate-y-full";
   } else {
-    headerStyles = hasImageBelow
-      ? "text-white bg-gradient-to-b from-black/50 stroke-white relative h-20"
-      : "relative h-20 stroke-black";
+    headerStyles = "border-transparent relative h-20";
+    headerStyles += hasImageBelow
+      ? " text-white bg-gradient-to-b bg-no-repeat from-black/50 stroke-white"
+      : " stroke-black";
   }
+
+  const itemsOnCart = items.reduce((total, item) => {
+    return (total += item.quantity);
+  }, 0);
 
   return (
     <>
@@ -44,7 +52,7 @@ export function Header({ onOpenCart, hasImageBelow = false }) {
       ></div>
 
       <header
-        className={`sticky top-0 z-50 w-full flex items-center justify-between py-3 px-8 transition-all duration-300 ${headerStyles}`}
+        className={`sticky top-0 z-50 w-full flex items-center justify-between py-3 px-8 transition-all duration-200 border-b ${headerStyles}`}
       >
         <div className="h-full">
           <NavLink to="/">
@@ -60,16 +68,14 @@ export function Header({ onOpenCart, hasImageBelow = false }) {
             <li>
               <NavLink to="/shop">Shop</NavLink>
             </li>
-            <li>
-              <NavLink to="/about">About</NavLink>
-            </li>
-            <li>
-              <NavLink to="/contact">Contact</NavLink>
-            </li>
-            <li>
+            <li className="flex items-center">
+              {itemsOnCart !== 0 && (
+                <span className="block mr-2 font-bold">{itemsOnCart}</span>
+              )}
+
               <button
                 className="cursor-pointer"
-                onClick={onOpenCart}
+                onClick={toggleIsCartActive}
                 aria-label="Open Cart"
               >
                 <svg
