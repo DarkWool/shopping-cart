@@ -1,5 +1,5 @@
 export function ProductQuantity({ quantity, onDecrement, onIncrement }) {
-  const btnStyles = `bg-slate-200 w-6 h-6 rounded-sm stroke-slate-600 flex justify-center items-center p-1`;
+  const btnStyles = `bg-slate-200 w-6 h-6 rounded-sm stroke-slate-600 flex justify-center items-center p-1 duration-150 transition-colors hover:bg-slate-300`;
 
   return (
     <div className="flex gap-x-2 text-base font-semibold">
