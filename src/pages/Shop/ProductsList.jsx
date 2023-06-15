@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { StarsRating } from "../../components/StarsRating";
 import { Pagination } from "../../components/Pagination";
+import { SortItems } from "./SortItems";
 
 export function ProductsList({
   totalItems,
@@ -14,7 +15,11 @@ export function ProductsList({
 
   return (
     <div className={`py-12 pl-10 ${loadingStyles}`}>
-      <div className="text-sm font-semibold mb-3">{totalItems} items</div>
+      <div className="text-sm mb-3 flex items-center justify-between">
+        <div className="font-semibold">{totalItems} items</div>
+        <SortItems />
+      </div>
+
       <div className="grid grid-cols-3 gap-5">
         {items.map((item) => {
           return (
@@ -27,7 +32,7 @@ export function ProductsList({
                 <img src={item.image} alt="" className="h-48 w-full object-contain" />
               </div>
               <span className="text-slate-600">{item.category}</span>
-              <p className="font-medium leading-4 text-sm">{item.name}</p>
+              <p className="font-medium leading-5 text-sm">{item.name}</p>
               <StarsRating
                 itemRating={item.customerReviewAverage}
                 reviewCount={item.customerReviewCount}

@@ -1,4 +1,4 @@
-import { useLocation, Link } from "react-router-dom";
+import { useSearchParams, useLocation, Link } from "react-router-dom";
 import { isNumber } from "../utils.js";
 
 const createRange = (startingNum, length) =>
@@ -31,18 +31,22 @@ function createPagination(currPage, totalPages, siblings = 3) {
 
 function Pagination({ currPage, totalPages, siblings, onPageChange }) {
   const location = useLocation();
-
+  const [params] = useSearchParams();
   const pages = createPagination(currPage, totalPages, siblings);
+
+  const extraParams = params.has("sort") ? `&sort=${params.get("sort")}` : "";
 
   return (
     <nav className="mt-20 flex items-center gap-8 justify-center font-semibold">
       {pages.map((page, i) => {
         if (page === "...") return <span key={i}>···</span>;
 
+        const path = `${location.pathname}?page=${page}${extraParams}`;
+
         return currPage !== page ? (
           <Link
             key={i}
-            to={`${location.pathname}?page=${page}`}
+            to={path}
             className="p-2 transition-colors ease-in-out hover:text-slate-400"
             onClick={onPageChange}
           >

@@ -16,12 +16,13 @@ export function Shop() {
 
   const currCategoryId = category || "abcat0712000";
   const currPage = searchParams?.get("page") || 1;
+  const sortBy = searchParams?.get("sort") || "customerReviewCount.dsc";
 
   useEffect(() => {
     (async () => {
       const pageSize = 18;
       const itemsResponse = await fetchData(
-        `https://api.bestbuy.com/v1/products(categoryPath.id=${currCategoryId})?apiKey=${API_KEY}&sort=customerReviewCount.desc&show=categoryPath.id,categoryPath.name,customerReviewAverage,customerReviewCount,image,name,onSale,percentSavings,regularPrice,salePrice,shortDescription,sku&pageSize=${pageSize}&page=${currPage}&format=json`
+        `https://api.bestbuy.com/v1/products(categoryPath.id=${currCategoryId})?apiKey=${API_KEY}&sort=${sortBy}&show=categoryPath.id,categoryPath.name,customerReviewAverage,customerReviewCount,image,name,onSale,percentSavings,regularPrice,salePrice,shortDescription,sku&pageSize=${pageSize}&page=${currPage}&format=json`
       );
 
       console.log(itemsResponse);
@@ -38,7 +39,7 @@ export function Shop() {
       setIsLoading(false);
       setItems(itemsResponse);
     })();
-  }, [currCategoryId, currPage]);
+  }, [currCategoryId, currPage, sortBy]);
 
   const handleItemsChange = () => setIsLoading(true);
 
@@ -69,7 +70,10 @@ export function Shop() {
             items={items.products}
             currPage={+currPage}
             totalPages={+items.totalPages}
-            onPageChange={handleItemsChange}
+            onPageChange={() => {
+              window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+              handleItemsChange();
+            }}
           />
         </Container>
       </div>
