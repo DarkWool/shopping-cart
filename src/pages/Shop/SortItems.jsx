@@ -1,7 +1,7 @@
 import { useId } from "react";
 import { useSearchParams } from "react-router-dom";
 
-export function SortItems() {
+export function SortItems({ onChange }) {
   const selectId = useId();
   const [searchParams, setSearchParams] = useSearchParams();
   const inputValue = searchParams.get("sort") || "";
@@ -17,6 +17,8 @@ export function SortItems() {
         onChange={(e) => {
           if (e.target.value !== "") setSearchParams({ sort: e.target.value });
           else setSearchParams();
+
+          onChange();
         }}
       >
         <option value="">Popularity</option>

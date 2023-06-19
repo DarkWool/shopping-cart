@@ -17,7 +17,7 @@ export function ProductsList({
     <div className={`py-12 pl-10 ${loadingStyles}`}>
       <div className="text-sm mb-3 flex items-center justify-between">
         <div className="font-semibold">{totalItems} items</div>
-        <SortItems />
+        <SortItems onChange={onPageChange} />
       </div>
 
       <div className="grid grid-cols-3 gap-5">
