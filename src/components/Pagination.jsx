@@ -29,12 +29,20 @@ function createPagination(currPage, totalPages, siblings = 3) {
   }
 }
 
+function getUrlParams(params) {
+  const newParams = new URLSearchParams();
+
+  params.has("search") ? newParams.append("search", params.get("search")) : null;
+  params.has("sort") ? newParams.append("sort", params.get("sort")) : null;
+
+  return newParams.size > 0 ? `&${newParams}` : "";
+}
+
 function Pagination({ currPage, totalPages, siblings, onPageChange }) {
   const location = useLocation();
   const [params] = useSearchParams();
   const pages = createPagination(currPage, totalPages, siblings);
-
-  const extraParams = params.has("sort") ? `&sort=${params.get("sort")}` : "";
+  const extraParams = getUrlParams(params);
 
   return (
     <nav className="mt-20 flex items-center gap-8 justify-center font-semibold">

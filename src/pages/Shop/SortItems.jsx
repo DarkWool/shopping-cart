@@ -15,8 +15,14 @@ export function SortItems({ onChange }) {
         className="text-base py-1 px-2 rounded border border-slate-300 bg-slate-50 cursor-pointer transition-colors ease-in-out hover:border-slate-400"
         value={inputValue}
         onChange={(e) => {
-          if (e.target.value !== "") setSearchParams({ sort: e.target.value });
-          else setSearchParams();
+          searchParams.delete("page");
+
+          if (e.target.value !== "") {
+            searchParams.set("sort", e.target.value);
+          } else {
+            searchParams.delete("sort");
+          }
+          setSearchParams(searchParams);
 
           onChange();
         }}
