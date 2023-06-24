@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.users-rating {
+  @apply text-2xl tracking-tighter bg-stars-gradient before:content-['★★★★★'] bg-clip-text text-transparent mr-1;
+}
