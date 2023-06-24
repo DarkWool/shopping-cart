@@ -69,6 +69,36 @@ describe("Cart", () => {
     expect(screen.getByTestId("subtotal").textContent).toMatch(/557.99/);
   });
 
+  it("correctly calculates and renders the subtotal when there are items on sale", () => {
+    const mockData = [
+      {
+        id: 1,
+        name: "Product 1",
+        quantity: 1,
+        regularPrice: 345,
+        salePrice: 200,
+        onSale: true,
+      },
+      {
+        id: 2,
+        name: "Product 2",
+        quantity: 1,
+        regularPrice: 200,
+        salePrice: 1,
+        onSale: true,
+      },
+      { id: 3, name: "Product 3", quantity: 1, regularPrice: 12.99 },
+    ];
+
+    render(
+      <CartProvider initialItems={mockData}>
+        <Cart />
+      </CartProvider>
+    );
+
+    expect(screen.getByTestId("subtotal").textContent).toMatch(/213.99/);
+  });
+
   it("renders 'checkout' button", () => {
     render(
       <CartProvider>
@@ -76,7 +106,7 @@ describe("Cart", () => {
       </CartProvider>
     );
 
-    expect(screen.getByRole("link", { name: /checkout/i }));
+    expect(screen.getByRole("button", { name: /checkout/i }));
   });
 });
 
