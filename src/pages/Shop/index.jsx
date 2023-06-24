@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import { Loader } from "../../components/Loader";
 import { Sidebar } from "./Sidebar";
-import { ProductsList } from "./ProductsList";
+import { ItemsList } from "./ItemsList";
 import { Container } from "../../components/Container";
 import { Pagination } from "../../components/Pagination";
 import { SortItems } from "./SortItems";
@@ -82,7 +82,7 @@ export function Shop() {
               <SortItems onChange={anticipateFetch} />
             </div>
 
-            <ProductsList
+            <ItemsList
               isLoading={loadingItems}
               totalItems={itemsData.total}
               items={itemsData.products}

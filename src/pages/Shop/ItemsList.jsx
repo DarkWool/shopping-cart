@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { StarsRating } from "../../components/StarsRating";
 
-export function ProductsList({ items }) {
+export function ItemsList({ items }) {
   return (
     <div className="grid grid-cols-3 gap-5">
       {items.map((item) => {
@@ -20,7 +20,7 @@ export function ProductsList({ items }) {
               itemRating={item.customerReviewAverage}
               reviewCount={item.customerReviewCount}
             />
-            <span className="pt-3 font-bold text-slate-800 pb-3">
+            <span className="pt-3 font-bold text-slate-800 pb-3 mt-auto">
               ${item.regularPrice}
             </span>
           </Link>
