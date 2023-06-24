@@ -22,8 +22,16 @@ export function SingleProduct() {
   const data = rawData.products[0];
 
   const addItem = () => {
+    const { sku, name, image, regularPrice, salePrice, onSale } = data;
     cartContext.toggleIsCartActive();
-    cartContext.handleAddItemToCart(data);
+    cartContext.handleAddItemToCart({
+      sku,
+      name,
+      image,
+      regularPrice,
+      salePrice,
+      onSale,
+    });
   };
 
   return (
@@ -54,10 +62,11 @@ export function SingleProduct() {
             className="mb-5"
           />
 
-          <div className="mb-6 leading-none">
-            <span className="mr-1 font-bold">$</span>
-            <span className="font-medium leading-none text-3xl">{data.regularPrice}</span>
-          </div>
+          <Price
+            regularPrice={data.regularPrice}
+            salePrice={data.salePrice}
+            onSale={data.onSale}
+          />
 
           {data.color && (
             <div>
@@ -103,5 +112,31 @@ export function SingleProduct() {
         details={data.details}
       />
     </>
+  );
+}
+
+function Price({ regularPrice, salePrice, onSale }) {
+  const createPriceElement = (price) => {
+    return (
+      <div>
+        <span className="mr-1 font-bold">$</span>
+        <span className="font-medium leading-none text-3xl">{price}</span>
+      </div>
+    );
+  };
+
+  return (
+    <div className="mb-6 leading-none">
+      {onSale ? (
+        <>
+          <span className="block line-through text-xl text-gray-500">
+            ${regularPrice}
+          </span>
+          {createPriceElement(salePrice)}
+        </>
+      ) : (
+        <>{createPriceElement(regularPrice)}</>
+      )}
+    </div>
   );
 }

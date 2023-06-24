@@ -21,7 +21,16 @@ export function ItemsList({ items }) {
               reviewCount={item.customerReviewCount}
             />
             <span className="pt-3 font-bold text-slate-800 pb-3 mt-auto">
-              ${item.regularPrice}
+              {item.onSale ? (
+                <>
+                  ${item.salePrice}
+                  <div className="text-sm bg-red-600 text-white py-1 px-3 inline-block ml-4">
+                    Sale
+                  </div>
+                </>
+              ) : (
+                <>${item.regularPrice}</>
+              )}
             </span>
           </Link>
         );

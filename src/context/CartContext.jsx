@@ -49,6 +49,18 @@ function CartProvider({ children, initialItems }) {
   const handleRemoveItemFromCart = (sku) =>
     setItems(items.filter((item) => item.sku !== sku));
 
+  const getSubtotal = () => {
+    return items
+      .reduce((total, curr) => {
+        let price = curr.onSale ? curr.salePrice : curr.regularPrice;
+        price *= curr.quantity;
+
+        total += price;
+        return total;
+      }, 0)
+      .toFixed(2);
+  };
+
   const providerValues = {
     isCartActive,
     toggleIsCartActive,
@@ -56,6 +68,7 @@ function CartProvider({ children, initialItems }) {
     handleAddItemToCart,
     handleAdjustItemQuantity,
     handleRemoveItemFromCart,
+    getSubtotal,
   };
 
   return <CartContext.Provider value={providerValues}>{children}</CartContext.Provider>;
