@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.swiper-slide-thumb-active {
+  @apply border-slate-500;
+}
+
 .users-rating {
   @apply text-2xl tracking-tighter bg-stars-gradient before:content-['★★★★★'] bg-clip-text text-transparent mr-1;
 }
