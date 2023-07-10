@@ -2,22 +2,22 @@ import heroImg from "/src/assets/images/hero-img.png";
 import lipsImg from "/src/assets/images/lips.png";
 import arrow from "/src/assets/images/arrow.svg";
 import textBackground from "/src/assets/images/innovate-text-gradient.png";
+import smilingFace from "/src/assets/images/bestbuy-face.png";
 import { Link } from "react-router-dom";
 import { Marquee } from "../components/Marquee";
-import { IconBox } from "../components/IconBox";
 import { Container } from "../components/Container";
 
 export function Home() {
   return (
     <>
       <section>
-        <div className="-mt-20 absolute">
-          <img src={textBackground} alt="" />
+        <div className="-mt-20 absolute -z-10">
+          <img src={textBackground} />
         </div>
 
-        <Container className="flex items-center">
-          <div className="w-1/2 max-w-full shrink-0">
-            <div className="flex gap-4 mb-5">
+        <Container className="flex flex-col md:flex-row items-center mt-9">
+          <div className="md:w-1/2 max-w-full shrink-0">
+            <div className="flex gap-4 mb-5 [&>img]:w-4 [&>img]:md:w-8">
               <img
                 src={arrow}
                 className="animate-opacity-pulse"
@@ -40,24 +40,52 @@ export function Home() {
               />
             </div>
 
-            <h1 className="text-7xl font-headings mb-6 font-medium tracking-tighter text-black">
-              <span className="ml-14">See with</span> <br />
-              <span className="font-extrabold text-8xl">
+            <h1 className="text-4xl md:text-7xl font-headings mb-7 md:mb-9 font-medium tracking-tighter text-black">
+              <span className="ml-8 md:ml-14">See with</span> <br />
+              <span className="font-extrabold text-5xl md:text-8xl">
                 the future, <br />
               </span>
-              <span className="ml-40">not the past.</span>
+              <span className="ml-20 md:ml-40">not the past.</span>
             </h1>
 
             <p className="leading-5 max-w-prose">
-              Step into the future with the revolutionary Apple VR headset. Experience
-              immersive technology like never before. Shop now and embrace the next level
-              of digital reality.
+              Step into the future with the revolutionary <b>Apple VR headset</b>.
+              <br></br>
+              Experience immersive technology like never before. Embrace the next level of
+              digital reality.
             </p>
+
+            <Link
+              to="/shop"
+              className="btn-primary mt-12 mb-10 inline-flex align-middle gap-x-3"
+            >
+              START SHOPPING
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
+                  />
+                </svg>
+              </span>
+            </Link>
           </div>
 
           {/* second col */}
-          <div className="grow relative">
-            <img src={lipsImg} alt="" className="absolute top-0 left-0" />
+          <div className="mt-10 md:mt-0 grow relative">
+            <img
+              src={lipsImg}
+              alt=""
+              className="max-w-[7rem] md:max-w-full absolute top-0 left-0"
+            />
             <img src={heroImg} alt="" />
           </div>
         </Container>
@@ -68,76 +96,72 @@ export function Home() {
         content="THE JOURNEY STARTS HERE"
       />
 
-      <Container as="section" className="my-14 flex items-center gap-36">
-        <div className="max-w-sm w-full shrink-0"></div>
+      <Container
+        as="section"
+        className="mt-14 md:mt-24 mb-14 flex flex-col-reverse md:flex-row items-center gap-14 md:gap-36"
+      >
+        <div className="max-w-lg w-full shrink-0 flex flex-col items-center">
+          <img src={smilingFace} alt="" className="max-w-xs md:max-w-lg" />
+          <Link to="/shop" className="btn-primary my-5">
+            MEET THE NEW AGE
+          </Link>
+        </div>
 
         <div>
-          <h2 className="text-5xl mb-8 tracking-tight">
-            Products that <span className="font-extrabold">fit YOU.</span>
+          <h2 className="text-4xl mb-9 tracking-tight">
+            Tech is the <span className="font-extrabold">new age.</span>
           </h2>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce elementum, nisl
-            nec dictum vehicula, sapien metus convallis nisi, in tristique velit nulla
-            tempor tortor. Ut vitae orci id purus efficitur viverra quis ut purus. Ut
-            posuere vel augue a aliquet. Integer at erat lobortis, bibendum ex vitae,
-            volutpat eros. Suspendisse euismod placerat nisi quis maximus. Pellentesque
-            habitant morbi tristique senectus et netus et malesuada fames ac turpis
-            egestas. Mauris volutpat pharetra malesuada. Cras non nisl imperdiet, posuere
-            nunc quis, lobortis dui. Fusce mollis bibendum libero in ultrices. Nulla
-            vulputate ullamcorper diam eget eleifend. Nulla id vehicula quam. Suspendisse
-            dui justo, aliquam finibus lacinia eu, porta eget turpis.
-          </p>
-          <p>
-            Quisque condimentum tempor cursus. Nulla nunc massa, porta a venenatis in,
-            ornare at arcu. Nam pharetra, dolor id suscipit semper, nisl tellus lacinia
-            ligula, et sollicitudin nibh lorem eget metus. Donec in aliquam tellus.
-          </p>
 
-          <div className="flex gap-x-16 mt-9">
-            <IconBox
-              heading={
-                <h2 className="text-3xl mb-3 tracking-tight">
-                  <span className="font-extrabold">Free</span> shipping
-                </h2>
-              }
-              content="Free shipping on every order. No minimums, no restrictions. Your wallet's best friend."
-            />
-            <IconBox
-              heading={
-                <h2 className="text-3xl mb-3 tracking-tight">
-                  <span>
-                    <span className="font-extrabold">Extended</span> warranty
-                  </span>
-                </h2>
-              }
-              content="Protect your investment with additional coverage for peace of mind, our store handles all the difficulty for you."
-            />
+          <div className="text-gray-700 text-sm leading-snug">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce elementum,
+              nisl nec dictum vehicula, sapien metus convallis nisi, in tristique velit
+              nulla tempor tortor. Ut vitae orci id purus efficitur viverra quis ut purus.
+              Ut posuere vel augue a aliquet. Integer at erat lobortis, bibendum ex vitae,
+              volutpat eros. Suspendisse euismod placerat nisi quis maximus. Pellentesque
+              habitant morbi tristique senectus et netus et malesuada fames ac turpis
+              egestas. Mauris volutpat pharetra malesuada. Cras non nisl imperdiet,
+              posuere nunc quis, lobortis dui. Fusce mollis bibendum libero in ultrices.
+              Nulla vulputate ullamcorper diam eget eleifend. Nulla id vehicula quam.
+              Suspendisse dui justo, aliquam finibus lacinia eu, porta eget turpis.
+            </p>
+            <p>
+              Quisque condimentum tempor cursus. Nulla nunc massa, porta a venenatis in,
+              ornare at arcu. Nam pharetra, dolor id suscipit semper, nisl tellus lacinia
+              ligula, et sollicitudin nibh lorem eget metus. Donec in aliquam tellus.
+            </p>
           </div>
         </div>
       </Container>
 
-      <Container as="section" className="flex items-center my-16">
-        <div className="grow">
+      <Container
+        as="section"
+        className="flex flex-col md:flex-row items-center my-10 md:my-32"
+      >
+        <div className="grow text-center md:text-left">
           <span className="text-gray-600 tracking-wider mb-2 block">
             Unleash their power. Unleash yours.
           </span>
-          <h2 className="text-5xl tracking-tight">
+
+          <h2 className="text-4xl md:text-5xl tracking-tight">
             BEST GAMING <span className="font-extrabold">DESKTOPS.</span>
           </h2>
-          <span className="mt-1 w-full h-1 bg-black block"></span>
+
+          <span className="w-0.5 h-20 mx-auto mt-4 md:mt-1 md:w-full md:h-1 bg-black block"></span>
         </div>
         <Link
           to="./shop/category/pcmcat287600050002"
-          className="bg-black w-96 h-96 bg-[url('/src/assets/images/gaming-desktop-sm.jpg')] bg-center bg-[length:100%] bg-no-repeat transition-all duration-300 ease-in-out hover:bg-[length:120%]"
+          className="bg-black w-full md:w-96 h-96 bg-[url('/src/assets/images/gaming-desktop-sm.jpg')] bg-center bg-[length:100%] bg-no-repeat transition-all duration-300 ease-in-out hover:bg-[length:120%]"
         />
       </Container>
 
-      <Container as="section" className="py-20">
-        <h2 className="text-5xl mb-8 tracking-tight">
+      <Container as="section" className="py-10 md:py-20">
+        <h2 className="text-4xl md:text-5xl mb-10 tracking-tight">
           World-class <span className="font-extrabold">composable businesses.</span>
         </h2>
-        <div className="flex column gap-x-16 text-slate-600">
-          <div className="w-1/2 shrink-0">
+
+        <div className="flex flex-col md:flex-row gap-x-16 text-gray-700 text-sm leading-snug">
+          <div className="md:w-1/2 shrink-0">
             <p>
               Quisque imperdiet nisl malesuada orci sodales cursus. Nunc laoreet
               vestibulum risus, quis rhoncus risus efficitur semper. Proin dapibus massa
