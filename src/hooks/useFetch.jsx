@@ -35,8 +35,10 @@ export function useFetch(url, fetchOptions, dependencies = null) {
         console.error(err);
         setError(err);
       } finally {
-        setIsLoading(false);
-        controllerRef.current = null;
+        if (isMounted) {
+          setIsLoading(false);
+          controllerRef.current = null;
+        }
       }
     }
 
