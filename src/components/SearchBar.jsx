@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
-export function SearchBar({ icon }) {
+export function SearchBar({ icon, inputStyles, placeholder, onSubmit = null }) {
   const inputRef = useRef(null);
   const navigate = useNavigate();
 
@@ -10,6 +10,7 @@ export function SearchBar({ icon }) {
 
     const value = inputRef.current.value;
     if (value === "") return;
+    if (onSubmit) onSubmit();
 
     navigate(`/shop?search=${inputRef.current.value}`);
     e.target.reset();
@@ -27,8 +28,8 @@ export function SearchBar({ icon }) {
 
       <input
         type="text"
-        className="w-full bg-white/25 border border-zinc-400 py-2 px-3 rounded pr-12"
-        placeholder="Search for your favorite product"
+        className={`w-full ${inputStyles}`}
+        placeholder={placeholder}
         ref={inputRef}
       />
     </form>
