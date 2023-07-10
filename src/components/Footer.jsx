@@ -36,9 +36,9 @@ const linksSections = [
 export function Footer() {
   return (
     <footer className="bg-zinc-950 text-white text-sm">
-      <Container className="py-16 flex justify-between">
-        <div className="max-w-xs mr-20 text-sm">
-          <img src={logo} className="mb-5" />
+      <Container className="py-16 flex flex-col md:flex-row justify-between">
+        <div className="md:max-w-xs mr-20 text-sm">
+          <img src={logo} className="mb-5 w-64" />
           <p className="leading-tight">
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis magni ut
             sit, veniam magnam nesciunt corporis neque aliquam earum facere repudiandae
@@ -46,7 +46,7 @@ export function Footer() {
           </p>
         </div>
 
-        <div className="flex gap-x-28">
+        <div className="flex flex-wrap gap-10 md:gap-x-28 mt-10 md:mt-0">
           {linksSections.map((section, i) => {
             const links = section.items.map((link, i) => {
               const attrs = { to: link.url };
@@ -77,7 +77,7 @@ export function Footer() {
       </Container>
 
       <div className="border-t border-gray-800">
-        <Container className="py-5 text-sm flex justify-between">
+        <Container className="py-5 text-sm flex flex-col gap-y-3 md:flex-row justify-between">
           <span className="text-gray-400">© 2023 Woolper Inc. All Rights Reserved.</span>
           <span className="font-medium">
             Project made by DarkWool using {"BestBuy's"} API.

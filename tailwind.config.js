@@ -29,9 +29,20 @@ export default {
     },
     container: {
       center: true,
+      padding: "1rem",
     },
     fontFamily: {
-      sans: ["Inter"],
+      sans: [
+        "Inter",
+        "ui-sans-serif",
+        "system-ui",
+        "-apple-system",
+        "BlinkMacSystemFont",
+        "Segoe UI",
+        "Roboto",
+        "Helvetica Neue",
+        "Arial",
+      ],
       headings: "Montserrat",
     },
   },

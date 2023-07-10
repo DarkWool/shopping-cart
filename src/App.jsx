@@ -17,7 +17,7 @@ function App() {
 
       <Routes>
         <Route path="/*" element={<Header />} />
-        <Route path="/shop/*" element={<Header hasImageBelow={true} />} />
+        <Route path="/shop/*" element={<Header variant="dark" />} />
       </Routes>
 
       <Routes>
