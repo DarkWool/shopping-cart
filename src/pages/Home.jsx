@@ -64,7 +64,7 @@ export function Home() {
       </section>
 
       <Marquee
-        className="bg-black text-white text-7xl font-headings tracking-tighter font-medium "
+        className="bg-black text-white text-4xl md:text-7xl font-headings tracking-tighter font-medium whitespace-nowrap"
         content="THE JOURNEY STARTS HERE"
       />
 

@@ -14,16 +14,16 @@ export default {
       }),
       animation: {
         "opacity-pulse": "opacity-pulse .8s ease-in-out infinite alternate-reverse",
-        "scroll-x-rtl": "scroll-x-rtl 12s linear infinite backwards",
+        marquee: "marquee 10s linear infinite backwards",
       },
       keyframes: {
         "opacity-pulse": {
           "0%": { opacity: 0 },
           "100%": { opacity: 1 },
         },
-        "scroll-x-rtl": {
-          "0%": { left: "100%" },
-          "100%": { left: "-100%" },
+        marquee: {
+          "0%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(-100%)" },
         },
       },
     },
