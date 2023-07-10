@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import { Loader } from "../../components/Loader";
-import { API_KEY } from "../../api.js";
 import { useFetch } from "../../hooks/useFetch";
 import { Container } from "../../components/Container";
 import { AdditionalInfo } from "./AdditionalInfo";
@@ -14,7 +13,9 @@ export function SingleProduct() {
   const cartContext = useCart();
   const { id } = useParams();
   const [loading, error, rawData] = useFetch(
-    `https://api.bestbuy.com/v1/products(sku=${id})?apiKey=${API_KEY}&show=addToCartUrl,categoryPath.id,categoryPath.name,color,customerReviewAverage,customerReviewCount,description,details.name,details.value,features.feature,image,images,includedItemList.includedItem,longDescription,manufacturer,modelNumber,name,onSale,regularPrice,salePrice,shortDescription,sku,productVariations&format=json`
+    `https://api.bestbuy.com/v1/products(sku=${id})?apiKey=${
+      import.meta.env.VITE_API_KEY
+    }&show=addToCartUrl,categoryPath.id,categoryPath.name,color,customerReviewAverage,customerReviewCount,description,details.name,details.value,features.feature,image,images,includedItemList.includedItem,longDescription,manufacturer,modelNumber,name,onSale,regularPrice,salePrice,shortDescription,sku,productVariations&format=json`
   );
 
   if (loading || error) return <Loader />;

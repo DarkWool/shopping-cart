@@ -6,7 +6,6 @@ import { ItemsList } from "./ItemsList";
 import { Container } from "../../components/Container";
 import { Pagination } from "../../components/Pagination";
 import { SortItems } from "./SortItems";
-import { API_KEY } from "../../api.js";
 import { useFetch } from "../../hooks/useFetch";
 import { categoriesData } from "./categoriesData";
 
@@ -21,7 +20,9 @@ export function Shop() {
   const searchBy = searchTerm ? `&name=${searchTerm}*` : "";
 
   const [loadingItems, errorItems, itemsData, anticipateFetch] = useFetch(
-    `https://api.bestbuy.com/v1/products(categoryPath.id=${currCategoryId}${searchBy})?apiKey=${API_KEY}&sort=${sortBy}&show=categoryPath.id,categoryPath.name,customerReviewAverage,customerReviewCount,image,name,onSale,percentSavings,regularPrice,salePrice,shortDescription,sku&pageSize=18&page=${currPage}&format=json`
+    `https://api.bestbuy.com/v1/products(categoryPath.id=${currCategoryId}${searchBy})?apiKey=${
+      import.meta.env.VITE_API_KEY
+    }&sort=${sortBy}&show=categoryPath.id,categoryPath.name,customerReviewAverage,customerReviewCount,image,name,onSale,percentSavings,regularPrice,salePrice,shortDescription,sku&pageSize=18&page=${currPage}&format=json`
   );
 
   const categories = categoriesData.subCategories;
