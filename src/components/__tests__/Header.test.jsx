@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
+import { CartProvider } from "../../context/CartContext";
 import { Header } from "../Header";
 
 const IntersectionObserverMock = vi.fn(() => ({
@@ -16,7 +16,9 @@ describe("<Header>", () => {
   it("must render a logo image", () => {
     render(
       <BrowserRouter>
-        <Header />
+        <CartProvider>
+          <Header />
+        </CartProvider>
       </BrowserRouter>
     );
 
@@ -26,7 +28,9 @@ describe("<Header>", () => {
   it("should render a list of links", () => {
     render(
       <BrowserRouter>
-        <Header />
+        <CartProvider>
+          <Header />
+        </CartProvider>
       </BrowserRouter>
     );
 
@@ -36,7 +40,9 @@ describe("<Header>", () => {
   it("renders a 'home' link", () => {
     render(
       <BrowserRouter>
-        <Header />
+        <CartProvider>
+          <Header />
+        </CartProvider>
       </BrowserRouter>
     );
     const homeLink = screen.getByRole("link", { name: /home/i });
@@ -48,7 +54,9 @@ describe("<Header>", () => {
   it("renders a 'shop' link", () => {
     render(
       <BrowserRouter>
-        <Header />
+        <CartProvider>
+          <Header />
+        </CartProvider>
       </BrowserRouter>
     );
     const homeLink = screen.getByRole("link", { name: /shop/i });
@@ -57,18 +65,16 @@ describe("<Header>", () => {
     expect(homeLink).toHaveAttribute("href");
   });
 
-  it("calls onOpenCart correct number of times", async () => {
-    const user = userEvent.setup();
-    const onOpenCartMock = vi.fn();
-
+  it("renders a 'cart' button", () => {
     render(
       <BrowserRouter>
-        <Header onOpenCart={onOpenCartMock} />
+        <CartProvider>
+          <Header />
+        </CartProvider>
       </BrowserRouter>
     );
     const cartBtn = screen.getByRole("button", { name: /open cart/i });
-    await user.click(cartBtn);
 
-    expect(onOpenCartMock).toHaveBeenCalledTimes(1);
+    expect(cartBtn).toBeInTheDocument();
   });
 });
