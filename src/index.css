@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.btn-primary {
+  @apply py-3 px-7 md:py-4 md:px-10 font-bold rounded-full border-2 border-black shadow-[7px_8px_0px_5px_black] text-base duration-200 hover:bg-shiny-yellow;
+}
+
 .swiper-slide-thumb-active {
   @apply border-slate-500;
 }

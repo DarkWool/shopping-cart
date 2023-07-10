@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { BrowserRouter } from "react-router-dom";
 import { Cart } from "../Cart";
 import { CartProvider } from "../../context/CartContext";
 
@@ -33,37 +34,43 @@ describe("Cart", () => {
     expect(cart).toHaveClass("invisible");
   });
 
-  it("renders 'subtotal' text", () => {
+  it("renders a message when there are NO items in the cart", () => {
     render(
       <CartProvider>
         <Cart />
       </CartProvider>
+    );
+
+    expect(screen.getByText(/no items have been added to your bag/i)).toBeInTheDocument();
+  });
+
+  it("renders subtotal text when there is at least one item in the cart", () => {
+    const mockData = [{ sku: 1, name: "Product 1", quantity: 1, regularPrice: 345 }];
+
+    render(
+      <BrowserRouter>
+        <CartProvider initialItems={mockData}>
+          <Cart />
+        </CartProvider>
+      </BrowserRouter>
     );
 
     expect(screen.getByText(/subtotal/i));
   });
 
-  it("renders zero as the subtotal when there are no items in the cart", () => {
-    render(
-      <CartProvider>
-        <Cart />
-      </CartProvider>
-    );
-
-    expect(screen.getByTestId("subtotal").textContent).toMatch(/0/);
-  });
-
   it("correctly calculates and renders the subtotal", () => {
     const mockData = [
-      { id: 1, name: "Product 1", quantity: 1, regularPrice: 345 },
-      { id: 2, name: "Product 2", quantity: 1, regularPrice: 200 },
-      { id: 3, name: "Product 3", quantity: 1, regularPrice: 12.99 },
+      { sku: 1, name: "Product 1", quantity: 1, regularPrice: 345 },
+      { sku: 2, name: "Product 2", quantity: 1, regularPrice: 200 },
+      { sku: 3, name: "Product 3", quantity: 1, regularPrice: 12.99 },
     ];
 
     render(
-      <CartProvider initialItems={mockData}>
-        <Cart />
-      </CartProvider>
+      <BrowserRouter>
+        <CartProvider initialItems={mockData}>
+          <Cart />
+        </CartProvider>
+      </BrowserRouter>
     );
 
     expect(screen.getByTestId("subtotal").textContent).toMatch(/557.99/);
@@ -72,7 +79,7 @@ describe("Cart", () => {
   it("correctly calculates and renders the subtotal when there are items on sale", () => {
     const mockData = [
       {
-        id: 1,
+        sku: 1,
         name: "Product 1",
         quantity: 1,
         regularPrice: 345,
@@ -80,30 +87,36 @@ describe("Cart", () => {
         onSale: true,
       },
       {
-        id: 2,
+        sku: 2,
         name: "Product 2",
         quantity: 1,
         regularPrice: 200,
         salePrice: 1,
         onSale: true,
       },
-      { id: 3, name: "Product 3", quantity: 1, regularPrice: 12.99 },
+      { sku: 3, name: "Product 3", quantity: 1, regularPrice: 12.99 },
     ];
 
     render(
-      <CartProvider initialItems={mockData}>
-        <Cart />
-      </CartProvider>
+      <BrowserRouter>
+        <CartProvider initialItems={mockData}>
+          <Cart />
+        </CartProvider>
+      </BrowserRouter>
     );
 
     expect(screen.getByTestId("subtotal").textContent).toMatch(/213.99/);
   });
 
-  it("renders 'checkout' button", () => {
+  it("renders the 'checkout' button when there is at least one item in the cart", () => {
+    const mockData = [{ sku: 1, name: "Product 1", quantity: 1, regularPrice: 345 }];
+
     render(
-      <CartProvider>
-        <Cart />
-      </CartProvider>
+      <BrowserRouter>
+        <CartProvider initialItems={mockData}>
+          <Cart />
+        </CartProvider>
+      </BrowserRouter>
     );
 
     expect(screen.getByRole("button", { name: /checkout/i }));
@@ -113,15 +126,17 @@ describe("Cart", () => {
 describe("Cart Items", () => {
   it("renders the correct number of items in ascending order", () => {
     const mockData = [
-      { id: 1, name: "Product 1", quantity: 1, regularPrice: 345 },
-      { id: 2, name: "Product 2", quantity: 1, regularPrice: 200 },
-      { id: 3, name: "Product 3", quantity: 1, regularPrice: 12.99 },
+      { sku: 1, name: "Product 1", quantity: 1, regularPrice: 345 },
+      { sku: 2, name: "Product 2", quantity: 1, regularPrice: 200 },
+      { sku: 3, name: "Product 3", quantity: 1, regularPrice: 12.99 },
     ];
 
     render(
-      <CartProvider initialItems={mockData}>
-        <Cart />
-      </CartProvider>
+      <BrowserRouter>
+        <CartProvider initialItems={mockData}>
+          <Cart />
+        </CartProvider>
+      </BrowserRouter>
     );
 
     const items = screen.getAllByTestId("itemTitle");
@@ -131,17 +146,38 @@ describe("Cart Items", () => {
     expect(screen.getAllByRole("listitem")).toHaveLength(3);
   });
 
-  it("renders the items prices", () => {
+  it("renders a list of links, one per item in the cart", () => {
     const mockData = [
-      { id: 1, name: "Product 1", quantity: 1, regularPrice: 345 },
-      { id: 2, name: "Product 2", quantity: 1, regularPrice: 200 },
-      { id: 3, name: "Product 3", quantity: 1, regularPrice: 12.99 },
+      { sku: 1, name: "Product 1", quantity: 1, regularPrice: 345 },
+      { sku: 2, name: "Product 2", quantity: 1, regularPrice: 200 },
+      { sku: 3, name: "Product 3", quantity: 1, regularPrice: 12.99 },
     ];
 
     render(
-      <CartProvider initialItems={mockData}>
-        <Cart />
-      </CartProvider>
+      <BrowserRouter>
+        <CartProvider initialItems={mockData}>
+          <Cart />
+        </CartProvider>
+      </BrowserRouter>
+    );
+
+    const links = screen.getAllByRole("link");
+    expect(links).toHaveLength(3);
+  });
+
+  it("renders the items prices", () => {
+    const mockData = [
+      { sku: 1, name: "Product 1", quantity: 1, regularPrice: 345 },
+      { sku: 2, name: "Product 2", quantity: 1, regularPrice: 200 },
+      { sku: 3, name: "Product 3", quantity: 1, regularPrice: 12.99 },
+    ];
+
+    render(
+      <BrowserRouter>
+        <CartProvider initialItems={mockData}>
+          <Cart />
+        </CartProvider>
+      </BrowserRouter>
     );
 
     expect(screen.getByText(/345/));
@@ -158,9 +194,11 @@ describe("Cart Items", () => {
     const user = userEvent.setup();
 
     render(
-      <CartProvider initialItems={mockData}>
-        <Cart />
-      </CartProvider>
+      <BrowserRouter>
+        <CartProvider initialItems={mockData}>
+          <Cart />
+        </CartProvider>
+      </BrowserRouter>
     );
     const removeItemBtns = screen.getAllByRole("button", { name: /remove item/i });
     await user.click(removeItemBtns[0]);
@@ -171,15 +209,17 @@ describe("Cart Items", () => {
 
   it("must render 2 buttons per item to decrement and increment its quantity", () => {
     const mockData = [
-      { id: 1, name: "Product 1", quantity: 1, price: 345 },
-      { id: 2, name: "Product 2", quantity: 1, price: 200 },
-      { id: 3, name: "Product 3", quantity: 1, price: 12.99 },
+      { sku: 1, name: "Product 1", quantity: 1, price: 345 },
+      { sku: 2, name: "Product 2", quantity: 1, price: 200 },
+      { sku: 3, name: "Product 3", quantity: 1, price: 12.99 },
     ];
 
     render(
-      <CartProvider initialItems={mockData}>
-        <Cart />
-      </CartProvider>
+      <BrowserRouter>
+        <CartProvider initialItems={mockData}>
+          <Cart />
+        </CartProvider>
+      </BrowserRouter>
     );
 
     expect(screen.getAllByRole("button", { name: /decrement/i })).toHaveLength(3);
@@ -187,13 +227,15 @@ describe("Cart Items", () => {
   });
 
   it("decrements the item quantity when the 'decrement' button is clicked", async () => {
-    const mockData = [{ id: 1, name: "Product 1", quantity: 5, price: 345 }];
+    const mockData = [{ sku: 1, name: "Product 1", quantity: 5, price: 345 }];
     const user = userEvent.setup();
 
     render(
-      <CartProvider initialItems={mockData}>
-        <Cart />
-      </CartProvider>
+      <BrowserRouter>
+        <CartProvider initialItems={mockData}>
+          <Cart />
+        </CartProvider>
+      </BrowserRouter>
     );
     const decrementBtn = screen.getByRole("button", { name: /decrement/i });
     await user.click(decrementBtn);
@@ -202,13 +244,15 @@ describe("Cart Items", () => {
   });
 
   it("removes an item from the cart when its quantity is equal to 1 and the user clicks on the 'decrement' button", async () => {
-    const mockData = [{ id: 1, name: "Product 1", quantity: 1, price: 345 }];
+    const mockData = [{ sku: 1, name: "Product 1", quantity: 1, price: 345 }];
     const user = userEvent.setup();
 
     render(
-      <CartProvider initialItems={mockData}>
-        <Cart />
-      </CartProvider>
+      <BrowserRouter>
+        <CartProvider initialItems={mockData}>
+          <Cart />
+        </CartProvider>
+      </BrowserRouter>
     );
     const item = screen.getByRole("listitem");
     const decrementBtn = screen.getByRole("button", { name: /decrement/i });
@@ -218,13 +262,15 @@ describe("Cart Items", () => {
   });
 
   it("increments the item quantity when the 'increment' button is clicked", async () => {
-    const mockData = [{ id: 1, name: "Product 1", quantity: 5, price: 345 }];
+    const mockData = [{ sku: 1, name: "Product 1", quantity: 5, price: 345 }];
     const user = userEvent.setup();
 
     render(
-      <CartProvider initialItems={mockData}>
-        <Cart />
-      </CartProvider>
+      <BrowserRouter>
+        <CartProvider initialItems={mockData}>
+          <Cart />
+        </CartProvider>
+      </BrowserRouter>
     );
     const incrementBtn = screen.getByRole("button", { name: /increment/i });
     await user.click(incrementBtn);
