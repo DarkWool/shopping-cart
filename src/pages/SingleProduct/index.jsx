@@ -36,19 +36,22 @@ export function SingleProduct() {
 
   return (
     <>
-      <Container className="flex gap-x-32 mt-20 mb-32" as="section">
-        <div className="max-w-lg w-full">
+      <Container
+        className="flex flex-col gap-y-8 gap-x-32 mt-5 md:flex-row md:mt-20 mb-32"
+        as="section"
+      >
+        <div className="max-w-lg w-full mx-auto">
           <Carousel images={data.images} />
         </div>
 
         <div className="max-w-prose">
-          <div className="flex gap-x-6 text-sm mb-3">
+          <div className="flex flex-col md:flex-row gap-x-6 text-sm mb-3">
             <div>
-              <span className="font-semibold mr-2">Model:</span>
+              <span className="font-semibold mr-2 inline-block">Model:</span>
               {data.modelNumber}
             </div>
             <div>
-              <span className="font-semibold mr-2">SKU:</span>
+              <span className="font-semibold mr-2 inline-block">SKU:</span>
               {data.sku}
             </div>
           </div>
@@ -98,10 +101,10 @@ export function SingleProduct() {
           <Button
             variant="primary"
             onClick={addItem}
-            label="Add to Cart"
+            label="Add to Bag"
             className="mb-4 font-extrabold"
           >
-            ADD TO CART
+            ADD TO BAG
           </Button>
         </div>
       </Container>

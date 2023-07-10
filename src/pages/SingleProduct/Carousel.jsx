@@ -15,7 +15,7 @@ export function Carousel({ images }) {
           "--swiper-navigation-color": "#000",
           "--swiper-pagination-color": "#000",
         }}
-        className="mb-10 h-[35rem]"
+        className="mb-3 h-80 md:mb-10 md:h-[35rem]"
         navigation={true}
         modules={[Navigation, Thumbs, Controller]}
         thumbs={{
@@ -41,7 +41,7 @@ export function Carousel({ images }) {
         {images.map((i) => {
           return i.width > 300 ? (
             <SwiperSlide className="border border-slate-200 p-3 rounded-md hover:opacity-50 transition-opacity duration-100 ease-in cursor-pointer">
-              <img src={i.href} className="h-24 object-contain mx-auto" />
+              <img src={i.href} className="h-10 md:h-24 object-contain mx-auto" />
             </SwiperSlide>
           ) : null;
         })}
