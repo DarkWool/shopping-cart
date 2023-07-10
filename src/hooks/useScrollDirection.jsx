@@ -9,7 +9,7 @@ export function useScrollDirection() {
 
     const throttle = () => {
       clearTimeout(timeoutRef.current);
-      timeoutRef.current = setTimeout(() => getScrollDirection(), 100);
+      timeoutRef.current = setTimeout(() => getScrollDirection(), 20);
     };
 
     function getScrollDirection() {

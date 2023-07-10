@@ -1,4 +1,4 @@
-import logo from "/src/assets/images/logo.png";
+import logo from "/src/assets/images/logo.svg";
 import { Container } from "./Container";
 import { Link } from "react-router-dom";
 
