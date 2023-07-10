@@ -29,7 +29,7 @@ export function Sidebar({ currCategory, categories, onCategoryChange }) {
   });
 
   return (
-    <div className="w-56 shrink-0 leading-5 py-12 pr-5 border-r border-gray-200">
+    <div className="w-56 shrink-0 leading-5 pt-8 md:py-12 md:pr-5 mx-auto md:border-r border-gray-200">
       <div className="sticky top-20">
         <h2 className="text-xl font-bold pb-5">Categories</h2>
         {currCategory && (

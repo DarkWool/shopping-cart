@@ -8,7 +8,7 @@ export function useFetch(url, fetchOptions, dependencies = null) {
 
   useEffect(() => {
     async function fetchData(url, options = {}) {
-      if (!isLoading && error) {
+      if (!isLoading || error) {
         setIsLoading(true);
         setError(null);
       }

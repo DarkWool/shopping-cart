@@ -8,7 +8,7 @@ function Pagination({ currPage, totalPages, siblings, onPageChange }) {
   const extraParams = getUrlParams(params);
 
   return (
-    <nav className="mt-20 flex items-center gap-8 justify-center font-semibold">
+    <nav className="mt-20 flex md:justify-center gap-8 items-center font-semibold overflow-x-scroll">
       {pages.map((page, i) => {
         if (page === "...") return <span key={i}>···</span>;
 
@@ -26,7 +26,7 @@ function Pagination({ currPage, totalPages, siblings, onPageChange }) {
         ) : (
           <span
             key={i}
-            className="text-slate-400 border border-slate-400 rounded-full w-10 h-10 flex justify-center items-center"
+            className="text-slate-400 border border-slate-400 rounded-full w-10 h-10 flex justify-center items-center shrink-0"
           >
             {page}
           </span>
@@ -36,4 +36,4 @@ function Pagination({ currPage, totalPages, siblings, onPageChange }) {
   );
 }
 
-export { createPagination, Pagination };
+export { Pagination };

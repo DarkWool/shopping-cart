@@ -1,12 +1,17 @@
 import { useId } from "react";
 
-export function StarsRating({ itemRating, showRating = false, reviewCount, className }) {
+export function StarsRating({
+  itemRating,
+  showRating = false,
+  reviewCount,
+  className = "",
+}) {
   const referenceId = useId();
 
   if (!itemRating) return null;
 
   return (
-    <div className={`flex items-center ${className}`}>
+    <div className={`flex flex-wrap items-center ${className}`}>
       <span
         aria-describedby={referenceId}
         className="users-rating"
