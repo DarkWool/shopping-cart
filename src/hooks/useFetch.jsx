@@ -7,6 +7,9 @@ export function useFetch(url, fetchOptions, dependencies = null) {
   const controllerRef = useRef(null);
 
   useEffect(() => {
+    let isMounted = true;
+    const controller = new AbortController();
+
     async function fetchData(url, options = {}) {
       if (!isLoading || error) {
         setIsLoading(true);
@@ -14,8 +17,6 @@ export function useFetch(url, fetchOptions, dependencies = null) {
       }
 
       if (controllerRef.current) controllerRef.current.abort();
-
-      const controller = new AbortController();
       controllerRef.current = controller;
 
       try {
@@ -29,6 +30,8 @@ export function useFetch(url, fetchOptions, dependencies = null) {
         const data = await res.json();
         setData(data);
       } catch (err) {
+        if (!isMounted) return;
+
         console.error(err);
         setError(err);
       } finally {
@@ -38,6 +41,11 @@ export function useFetch(url, fetchOptions, dependencies = null) {
     }
 
     fetchData(url, fetchOptions);
+
+    return () => {
+      isMounted = false;
+      if (controllerRef.current) controllerRef.current.abort();
+    };
   }, dependencies || [url]);
 
   const anticipateFetch = () => {
