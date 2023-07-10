@@ -6,6 +6,7 @@ import { Home } from "./pages/Home";
 import { Shop } from "./pages/Shop/";
 import { Cart } from "./components/Cart";
 import { useCart } from "./context/CartContext";
+import { NotFound } from "./pages/404";
 
 function App() {
   const { isCartActive } = useCart();
@@ -26,6 +27,7 @@ function App() {
           <Route path="category/:category" />
         </Route>
         <Route path="/product/:id" element={<SingleProduct />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
 
       <Footer />
